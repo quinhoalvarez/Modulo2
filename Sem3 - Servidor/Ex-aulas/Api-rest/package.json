@@ -1,9 +1,10 @@
 {
-  "name": "exercicio3-bibliotecaonline",
+  "name": "api-rest",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "",
+  "main": "aula-api-rest.js",
   "scripts": {
-    "dev": "nodemon ./src/index.js"
+    "dev": "nodemon ./src/index.js ."
   },
   "keywords": [],
   "author": "",
@@ -11,7 +12,5 @@
   "dependencies": {
     "express": "^4.17.3",
     "nodemon": "^2.0.15"
-  },
-  "devDependencies": {},
-  "description": ""
+  }
 }

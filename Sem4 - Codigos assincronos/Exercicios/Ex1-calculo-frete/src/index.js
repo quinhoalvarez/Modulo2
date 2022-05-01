@@ -43,50 +43,55 @@ async function obterEstadoFrete(req, res) {
         return res.status(404).json('Não existe produto com esse ID')
     }
 
-    const estado = await getStateFromZipcode(cep)
 
-    // BA, SE, AL, PE e PB
-    if (estado === "BA" || estado === "SE" || estado === "AL" || estado === "PE" || estado === "PB") {
-        const frete = acharProdutos.valor * 0.10
+    try {
+        const estado = await getStateFromZipcode(cep)
 
-        return await res.send({
-            produto:
-            {
-                id: idProduto,
-                nome: acharProdutos.nome,
-                valor: acharProdutos.valor
-            },
-            estado,
-            frete
-        });
-    } else if (estado === "SP" || estado === "RJ") {
-        frete = acharProdutos.valor * 0.15
+        // BA, SE, AL, PE e PB
+        if (estado === "BA" || estado === "SE" || estado === "AL" || estado === "PE" || estado === "PB") {
+            const frete = acharProdutos.valor * 0.10
 
-        return await res.send({
-            produto:
-            {
-                id: idProduto,
-                nome: acharProdutos.nome,
-                valor: acharProdutos.valor
-            },
-            estado,
-            frete
-        })
-    } else {
-        frete = acharProdutos.valor * 0.12
+            return await res.send({
+                produto:
+                {
+                    id: idProduto,
+                    nome: acharProdutos.nome,
+                    valor: acharProdutos.valor
+                },
+                estado,
+                frete
+            });
+        } else if (estado === "SP" || estado === "RJ") {
+            frete = acharProdutos.valor * 0.15
 
-        return await res.send({
-            produto:
-            {
-                id: idProduto,
-                nome: acharProdutos.nome,
-                valor: acharProdutos.valor
-            },
-            estado,
-            frete
-        })
+            return await res.send({
+                produto:
+                {
+                    id: idProduto,
+                    nome: acharProdutos.nome,
+                    valor: acharProdutos.valor
+                },
+                estado,
+                frete
+            })
+        } else {
+            frete = acharProdutos.valor * 0.12
+
+            return await res.send({
+                produto:
+                {
+                    id: idProduto,
+                    nome: acharProdutos.nome,
+                    valor: acharProdutos.valor
+                },
+                estado,
+                frete
+            })
+        }
+
+    } catch (erro) {
+        return res.status(500).json(`Deu erro: ${erro.message}`)
     }
-
 
 };
 
